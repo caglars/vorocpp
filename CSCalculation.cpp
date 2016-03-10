@@ -43,6 +43,8 @@ double rnd() {
 
 
 void Calculation::calculate() {
+
+
     int i;
     double x,y,z,r;
     vector<int> neigh, f_vert;
@@ -56,12 +58,14 @@ void Calculation::calculate() {
 
 
     //random olarak dagitmak icin
+    /*
     for(i=0;i<particles-1;i++) {
         x=x_min+rnd()*(x_max-x_min);
         y=y_min+rnd()*(y_max-y_min);
         z=40;
         con.put(i,x,y,z);
     }
+     */
 
 
 

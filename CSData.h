@@ -5,10 +5,18 @@
 #ifndef VOROCPP_CSDATA_H
 #define VOROCPP_CSDATA_H
 
+#include <iostream>
+#include "voro++.hh"
+using namespace voro;
 
-class CSData {
+class CSDataReader {
+public:
+    double * readParticles();
+    int readDataFor(const std::string& theString);
+
 
 };
+
 
 
 #endif //VOROCPP_CSDATA_H

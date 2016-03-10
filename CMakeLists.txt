@@ -10,6 +10,6 @@ link_directories(/usr/local/lib)
 set(SOURCE_FILES
         main.cpp
         CSCalculation.cpp CSCalculation.h
-        CSSolver.cpp CSSolver.h)
+        CSSolver.cpp CSSolver.h CSData.cpp CSData.h)
 
 add_executable(vorocpp ${SOURCE_FILES})
