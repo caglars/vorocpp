@@ -8,11 +8,16 @@
 #include <iostream>
 #include "voro++.hh"
 using namespace voro;
+using namespace std;
 
 class CSDataReader {
+    string myDataFile;
+    double **particleList;
 public:
-    double * readParticles();
+    CSDataReader();
+    double ** readParticles();
     int readDataFor(const std::string& theString);
+    void test();
 
 
 };

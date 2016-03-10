@@ -10,8 +10,11 @@ int main() {
     // insert code here...
     std::cout << "Hello, World!\n";
 
+    //double **particleList;
+
     CSDataReader myReader;
-    myReader.readDataFor("PARTICLES");
+    myReader.readParticles();
+
 
     Calculation myCalculator;
     myCalculator.calculate();
