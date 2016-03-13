@@ -6,22 +6,27 @@
 using namespace voro;
 using namespace std;
 
+
 int main() {
     // insert code here...
     std::cout << "Hello, World!\n";
 
-    //double **particleList;
 
-    CSDataReader myReader;
-    myReader.readParticles();
+
 
 
     Calculation myCalculator;
+    myCalculator.buildModel();
     myCalculator.calculate();
     // insert code here...
     std::cout << "Hello, World Again!\n";
 
 
     return 0;
+
+}
+
+void incompressibleFlow() {
+
 
 }

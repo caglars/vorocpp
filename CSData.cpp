@@ -17,9 +17,6 @@ int CSDataReader::readDataFor(const string& theString) {
     ifstream myFile(myDataFile); //put your program together with this file in the same folder.
     string line="";
 
-    cout << "In readDataFor " << endl;
-
-
     if(myFile.is_open()){
 
         // num = line number where the input string is found
@@ -31,75 +28,111 @@ int CSDataReader::readDataFor(const string& theString) {
             }
         }
     }
+    else {
+        cout << "Error reading the file" << endl;
+    }
+
 
     return 0;
 }
 
-double **CSDataReader::readParticles() {
+int CSDataReader::readParticles(double **particleList) {
     string line = "";
     int num=0; // line counter
     int start = CSDataReader::readDataFor("PARTICLES");
     int end = CSDataReader::readDataFor("ENDPARTICLES");
-    int numberOfParticles = end - start - 1;
-    cout << "line sayısı: " << numberOfParticles << endl;
+    numberOfParticles = end - start - 1;
+
     particleList = new double *[numberOfParticles];
     for (int i = 0; i < numberOfParticles; i++) {
-        particleList[i] = new double[3]; // herbir array için 3 verilik yer al
+        particleList[i] = new double[3]; // herbir particle için 3 verilik yer al
     }
     int particleCounter = 0;
+
     ifstream myFile(myDataFile);
-    
+
+    // Start reading x, y and z coordinates of each particle
     if(myFile.is_open()) {
         while(getline(myFile, line)) { // I changed this, see below
-            cout << "----" << line << endl;
             num++;
             if (num>start && num<end) {
-                cout << num << endl;
                 istringstream iss(line);
-                cout << line << endl;
                 int n = 0;
                 while (iss) {
                     string sub;
                     iss >> sub;
                     if (sub.length()>0) {
-                        cout << particleCounter << " n = " << n << " and " << sub << endl;
                         particleList[particleCounter][n] = stoi(sub);
-                        cout << particleList[particleCounter][n] << endl;
                         n++;
                     }
                 }
                 particleCounter++;
-
-            }
-            else if (num == end)
-            {
-                cout << "end of particles" << endl;
-
-                for (int i = 0; i < 25; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        cout << particleList[i][j] << endl;
-                    }
-                }
-                return particleList;
             }
         }
     }
+    else {
+        cout << "Error reading the file" << endl;
+    }
 
+    return numberOfParticles;
 
-    return nullptr;
 }
 
-void CSDataReader::test() {
-    string s("Somewhere down the road");
-    istringstream iss(s);
+void CSDataReader::readValues(const string& propertyString, double *valueList) {
+    ifstream myFile(myDataFile); //put your program together with this file in the same folder.
+    string line="";
+    int start = readDataFor(propertyString);
+    int end = readDataFor("END"+propertyString);
+    int range = end - start - 1;
+    int numberOfTimes = 0;
+    int counter = 0;
 
-    do
-    {
-        string sub;
-        iss >> sub;
-        cout << "Substring: " << sub << endl;
+    valueList = new double[range];
 
-    } while (iss);
+    if(myFile.is_open()){
+
+        // num = line number where the input string is found
+        unsigned int num = 0;
+        while(getline(myFile, line)) {
+            num++;
+            if (num>start && num<end) {
+                istringstream iss(line);
+                int n=0;
+                while (iss) {
+                    string sub;
+                    iss >> sub;
+                    if (sub.length()>0) {
+                        n=sub.find('*');
+
+                        if (n!=string::npos) {
+                            cout << "* found at: " << n << '\n';
+                            numberOfTimes = stoi(sub.substr (0,n));
+                            cout << numberOfTimes << endl;
+                            for (int i = 0; i < numberOfTimes; ++i) {
+                                cout << sub.substr(n+1) << endl;
+                                valueList[counter] = stod(sub.substr(n+1));
+                                counter++;
+                                cout << counter << endl;
+                            }
+                        }
+                        else {
+                            cout << "no * found" << endl;
+                            valueList[counter] = stod(sub);
+                            counter++;
+                            cout << counter << endl;
+                        }
+                    }
+                    cout << "This is it " << sub << endl;
+                }
+            }
+        }
+    }
+    else {
+        cout << "Error reading the file" << endl;
+    }
+
+
 }
+
 
 

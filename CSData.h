@@ -10,14 +10,16 @@
 using namespace voro;
 using namespace std;
 
+
+
 class CSDataReader {
-    string myDataFile;
-    double **particleList;
 public:
-    CSDataReader();
-    double ** readParticles();
+    string myDataFile;
+    int numberOfParticles;
+    CSDataReader(); // constructor
+    int readParticles(double **particleList);
     int readDataFor(const std::string& theString);
-    void test();
+    void readValues(const string& propertyString, double *valueList);
 
 
 };

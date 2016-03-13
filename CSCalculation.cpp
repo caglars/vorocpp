@@ -7,7 +7,9 @@
 #include <ctime>
 #include "voro++.hh"
 #include "CSSolver.h"
+#include "CSData.h"
 #include <math.h>
+
 using namespace voro;
 
 #include <vector>
@@ -32,6 +34,7 @@ const int n_x=60,n_y=60,n_z=6;
 // Set the number of particles that are going to be randomly introduced
 const int particles=25;
 //const int particles=498;
+
 
 
 // This function returns a random double between 0 and 1
@@ -794,6 +797,17 @@ void Calculation::calculate() {
 
 
 
+}
+
+void Calculation::buildModel() {
+    double **particleList = NULL;
+    double *containerLimits = NULL;
+    CSDataReader myReader;
+    numberOfParticles = myReader.readParticles(particleList);
+
+    myReader.readValues("PERMX", containerLimits);
+
+    cout << "End of incompressible flow: " << numberOfParticles << endl;
 }
 
 double Calculation::distance(double x1, double y1, double z1, double x2, double y2, double z2) {
