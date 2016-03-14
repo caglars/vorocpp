@@ -17,7 +17,7 @@ public:
     string myDataFile;
     int numberOfParticles;
     CSDataReader(); // constructor
-    int readParticles(double **particleList);
+    void readParticles(double **particleList);
     int readDataFor(const std::string& theString);
     void readValues(const string& propertyString, double *valueList);
 

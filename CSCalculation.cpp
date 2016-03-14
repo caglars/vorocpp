@@ -803,9 +803,28 @@ void Calculation::buildModel() {
     double **particleList = NULL;
     double *containerLimits = NULL;
     CSDataReader myReader;
-    numberOfParticles = myReader.readParticles(particleList);
+    int start = myReader.readDataFor("PARTICLES");
+    int end = myReader.readDataFor("ENDPARTICLES");
+    numberOfParticles = end - start - 1;
 
-    myReader.readValues("PERMX", containerLimits);
+    particleList = new double *[numberOfParticles];
+    for (int i = 0; i < numberOfParticles; i++) {
+        particleList[i] = new double[3]; // herbir particle için 3 verilik yer al
+    }
+
+    myReader.readParticles(particleList);
+
+    cout << "number of particles: " << numberOfParticles << endl;
+
+    for (int i = 0; i < numberOfParticles; ++i) {
+        cout << "x: " << particleList[i][0] << " y: " << particleList[i][1] << " z: " << particleList[i][2] << endl;
+    }
+
+    containerLimits = new double[3];
+    myReader.readValues("LIMITS", containerLimits);
+    for (int i = 0; i < 3; ++i) {
+        cout << "x: " << containerLimits[i] << endl;
+    }
 
     cout << "End of incompressible flow: " << numberOfParticles << endl;
 }

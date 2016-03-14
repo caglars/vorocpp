@@ -36,17 +36,17 @@ int CSDataReader::readDataFor(const string& theString) {
     return 0;
 }
 
-int CSDataReader::readParticles(double **particleList) {
+void CSDataReader::readParticles(double **particleList) {
     string line = "";
     int num=0; // line counter
     int start = CSDataReader::readDataFor("PARTICLES");
     int end = CSDataReader::readDataFor("ENDPARTICLES");
-    numberOfParticles = end - start - 1;
+    //numberOfParticles = end - start - 1;
 
-    particleList = new double *[numberOfParticles];
-    for (int i = 0; i < numberOfParticles; i++) {
-        particleList[i] = new double[3]; // herbir particle için 3 verilik yer al
-    }
+    //particleList = new double *[numberOfParticles];
+    //for (int i = 0; i < numberOfParticles; i++) {
+    //    particleList[i] = new double[3]; // herbir particle için 3 verilik yer al
+    //}
     int particleCounter = 0;
 
     ifstream myFile(myDataFile);
@@ -62,7 +62,7 @@ int CSDataReader::readParticles(double **particleList) {
                     string sub;
                     iss >> sub;
                     if (sub.length()>0) {
-                        particleList[particleCounter][n] = stoi(sub);
+                        particleList[particleCounter][n] = stod(sub);
                         n++;
                     }
                 }
@@ -74,7 +74,7 @@ int CSDataReader::readParticles(double **particleList) {
         cout << "Error reading the file" << endl;
     }
 
-    return numberOfParticles;
+    //return numberOfParticles;
 
 }
 
@@ -83,11 +83,11 @@ void CSDataReader::readValues(const string& propertyString, double *valueList) {
     string line="";
     int start = readDataFor(propertyString);
     int end = readDataFor("END"+propertyString);
-    int range = end - start - 1;
+    //int range = end - start - 1;
     int numberOfTimes = 0;
     int counter = 0;
 
-    valueList = new double[range];
+    //valueList = new double[range];
 
     if(myFile.is_open()){
 
